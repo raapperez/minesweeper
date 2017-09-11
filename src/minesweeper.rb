@@ -17,6 +17,7 @@ class  Minesweeper
         @width = width
         @height = height
         @num_mines = num_mines
+        @field = field_factory.get_field(width, height, num_mines)
 
     end
 
