@@ -34,6 +34,8 @@ class  Minesweeper
     end
 
     def play(x, y)
+        cell = @field[x][y]
+        return cell.hit
     end
 
     def flag(x, y)

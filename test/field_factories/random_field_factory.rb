@@ -3,28 +3,28 @@ require "test/unit"
 
 class TestRandomFieldFactory < Test::Unit::TestCase
 
-def test_get_field
+    def test_get_field
 
-    width, height, num_mines = 10, 20, 30    
-    field_factory = RandomFieldFactory.new
+        width, height, num_mines = 10, 20, 30    
+        field_factory = RandomFieldFactory.new
 
-    field = field_factory.get_field(width, height, num_mines)
-    
-    assert_equal(width, field.length)
+        field = field_factory.get_field(width, height, num_mines)
+        
+        assert_equal(width, field.length)
 
-    mines = 0
+        mines = 0
 
-    for array in field
-        assert_equal(height, array.length)
-        for cell in array
-            if(cell.has_bomb?)
-                mines += 1
-            end
-        end        
+        for array in field
+            assert_equal(height, array.length)
+            for cell in array
+                if(cell.has_bomb?)
+                    mines += 1
+                end
+            end        
+        end
+
+        assert_equal(num_mines, mines)
+
     end
-
-    assert_equal(num_mines, mines)
-
-end
 
 end

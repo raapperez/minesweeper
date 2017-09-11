@@ -45,7 +45,6 @@ private
                         cell.add_neighbor_cell(neighbor_cell)
                     end
                 end
-
             end
         end
     end
