@@ -1,9 +1,23 @@
+require_relative "./field_factories/random_field_factory"
 
 class  Minesweeper
-    def initialize(width, height, num_mines)
+    def initialize(width, height, num_mines, field_factory = RandomFieldFactory.new)
+        if(width < 1)
+            raise "Ivalid value for width"
+        end
+
+        if(height < 1)
+            raise "Ivalid value for height"
+        end
+
+        if(width * height < num_mines)
+            raise "The param num_mines must be lower than the number of cells (width * height)"
+        end
+
         @width = width
         @height = height
         @num_mines = num_mines
+
     end
 
     def width
@@ -28,7 +42,11 @@ class  Minesweeper
         true
     end
 
-    def board_state
+    def victory?
+        true
+    end    
+
+    def board_state(params)
 
     end
 end
