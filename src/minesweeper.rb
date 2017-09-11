@@ -17,5 +17,18 @@ class  Minesweeper
     def num_mines
         @num_mines
     end
-    
+
+    def play(x, y)
+    end
+
+    def flag(x, y)
+    end
+
+    def still_playing?
+        true
+    end
+
+    def board_state
+
+    end
 end

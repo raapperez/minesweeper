@@ -11,4 +11,10 @@ def test_initialize
     assert_equal(num_mines, game.num_mines)
 end
 
+def test_still_playing?
+    width, height, num_mines = 10, 20, 30    
+    game = Minesweeper.new(width, height, num_mines)
+    assert_equal(true, game.still_playing?)
+end
+
 end
