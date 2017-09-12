@@ -1,4 +1,6 @@
 
+require_relative "./cell_state"
+
 class Cell
 
     def initialize
@@ -43,13 +45,13 @@ class Cell
     end
 
     def hit
-        if @has_flag || @has_hit
+        if has_flag? || has_hit?
             return false
         end
 
         @has_hit = true
 
-        if !@has_bomb && get_neighbor_bombs_num == 0
+        if !has_bomb? && get_neighbor_bombs_num == 0
             for cell in @neighbor_cells
                 cell.hit
             end
@@ -59,12 +61,38 @@ class Cell
     end
     
     def flag
-        if @has_hit
+        if has_hit?
             return false
         end
 
         @has_flag = !@has_flag
 
         return true
+    end
+
+    def get_state(xray = false)
+        if xray && has_bomb?
+            return CellState::bomb
+        end
+
+        if has_flag?
+            return CellState::flag
+        end
+
+        if !has_hit?
+            return CellState::unknow
+        end
+
+        if has_bomb?
+            return CellState::bomb
+        end
+
+        bombs = get_neighbor_bombs_num
+
+        if bombs > 0
+            return bombs.to_s
+        end
+
+        return CellState::clear
     end
 end

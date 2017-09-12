@@ -22,7 +22,6 @@ class  Minesweeper
         @height = height
         @num_mines = num_mines
         @field = field_factory.get_field(width, height, num_mines)
-
     end
 
     def width
@@ -86,6 +85,14 @@ class  Minesweeper
     end    
 
     def board_state(params)
+        xray = defined?(params) && params["xray"] && !still_playing?
 
+        state = []
+
+        for array in field
+            state.push(array.map { |cell| cell.get_state(xray) })            
+        end
+
+        return state;
     end
 end
