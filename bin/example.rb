@@ -2,7 +2,7 @@ require_relative "../src/minesweeper"
 require_relative "../src/printers/matrix_printer"
 require_relative "../src/printers/status_printer"
 
-width, height, num_mines = 10, 20, 4
+width, height, num_mines = 10, 20, 10
 game = Minesweeper.new(width, height, num_mines)
 
 while game.still_playing?
@@ -20,5 +20,5 @@ if game.victory?
 else
     puts "Voce perdeu! As minas eram:"
     MatrixPrinter.new.print(game.board_state(xray: true))
-    StatusPrinter.new.print(game.board_state)
+    StatusPrinter.new.print(game.board_state(xray: true))
 end
