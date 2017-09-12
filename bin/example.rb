@@ -9,14 +9,13 @@ while game.still_playing?
   valid_flag = game.flag(rand(width), rand(height))
   if valid_move or valid_flag
   printer = (rand > 0.5) ? MatrixPrinter.new : MatrixPrinter.new
-  puts "--------------------------------------------------------"
   printer.print(game.board_state)
   end
 end
 
 puts "Fim do jogo!"
 if game.victory?
-  puts "Você venceu!"
+  puts "Voce venceu!"
 else
   puts "Voce perdeu! As minas eram:"
   MatrixPrinter.new.print(game.board_state(xray: true))
