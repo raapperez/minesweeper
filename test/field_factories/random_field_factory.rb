@@ -17,7 +17,7 @@ class TestRandomFieldFactory < Test::Unit::TestCase
         for array in field
             assert_equal(height, array.length)
             for cell in array
-                if(cell.has_bomb?)
+                if cell.has_bomb?
                     mines += 1
                 end
             end        

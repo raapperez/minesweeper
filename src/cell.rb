@@ -39,13 +39,13 @@ class Cell
     end
 
     def hit
-        if(@has_flag || @has_hit)
+        if @has_flag || @has_hit
             return false
         end
 
         @has_hit = true
 
-        if(!@has_bomb && get_neighbor_bombs_num == 0)
+        if !@has_bomb && get_neighbor_bombs_num == 0
             for cell in @neighbor_cells
                 cell.hit
             end
@@ -55,7 +55,7 @@ class Cell
     end
     
     def flag
-        if(@has_hit)
+        if @has_hit
             return false
         end
 

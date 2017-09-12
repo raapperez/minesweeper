@@ -9,7 +9,7 @@ class TestCell < Test::Unit::TestCase
 
         for i in 0..7
             neighbor_cell = Cell.new
-            if(i % 2 == 0)
+            if i % 2 == 0
                 neighbor_cell.put_bomb
             end
             cell.add_neighbor_cell(neighbor_cell)

@@ -32,6 +32,13 @@ class TestMinesweeper < Test::Unit::TestCase
         end
     end
 
+    def test_initialize_invalid_field_factory
+        width, height, num_mines = 10, 20, 30
+        assert_raise do
+        game = Minesweeper.new(width, height, num_mines, nil)    
+        end
+    end
+
     def test_still_playing?
         width, height, num_mines = 10, 20, 30    
         game = Minesweeper.new(width, height, num_mines)
