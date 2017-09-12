@@ -12,6 +12,10 @@ class Cell
         @has_flag
     end
 
+    def has_hit?
+        @has_hit
+    end
+
     def has_bomb?
         @has_bomb
     end

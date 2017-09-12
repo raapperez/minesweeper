@@ -38,6 +38,10 @@ class  Minesweeper
     end
 
     def play(x, y)
+        if !still_playing?
+            return false
+        end
+
         cell = @field[x][y]
         return cell.hit
     end
@@ -48,11 +52,37 @@ class  Minesweeper
     end
 
     def still_playing?
-        true
+        result = false
+
+        for array in @field
+            for cell in array
+                if cell.has_hit? && cell.has_bomb?
+                    return false # Hit a bomb
+                end
+
+                if !cell.has_bomb? && !cell.has_hit? && !cell.has_flag?
+                    result = true # There is still a not hit cell without bomb and flag
+                end
+            end
+        end
+
+        return result
     end
 
     def victory?
-        true
+        if still_playing?
+            return false
+        end
+
+        for array in @field
+            for cell in array
+                if cell.has_hit? && cell.has_bomb?
+                    return false
+                end
+            end
+        end
+
+        return true
     end    
 
     def board_state(params)
