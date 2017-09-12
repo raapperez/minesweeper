@@ -20,4 +20,19 @@ class TestCell < Test::Unit::TestCase
         
     end
 
+    def test_flag
+        cell = Cell.new
+
+        assert_equal(false, cell.has_flag?)
+        assert_equal(true, cell.flag)
+        assert_equal(true, cell.has_flag?)
+        assert_equal(false, cell.hit) # Cannot hit cell with flag
+        assert_equal(true, cell.flag)
+        assert_equal(true, cell.hit) # Ok hit without flag
+        assert_equal(false, cell.has_flag?)
+        assert_equal(false, cell.hit) # Cannot hit cell again
+        assert_equal(false, cell.flag) # Cannot flag discovered flag
+
+    end
+
 end

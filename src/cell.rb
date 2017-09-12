@@ -8,6 +8,10 @@ class Cell
         @neighbor_cells = []
     end
 
+    def has_flag?
+        @has_flag
+    end
+
     def has_bomb?
         @has_bomb
     end
@@ -34,12 +38,28 @@ class Cell
         return @neighbor_bombs_num
     end
 
-    def hit(x, y)
+    def hit
         if(@has_flag || @has_hit)
             return false
         end
 
         @has_hit = true
+
+        if(!@has_bomb && get_neighbor_bombs_num == 0)
+            for cell in @neighbor_cells
+                cell.hit
+            end
+        end
+
+        return true
+    end
+    
+    def flag
+        if(@has_hit)
+            return false
+        end
+
+        @has_flag = !@has_flag
 
         return true
     end

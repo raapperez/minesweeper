@@ -39,6 +39,8 @@ class  Minesweeper
     end
 
     def flag(x, y)
+        cell = @field[x][y]
+        return cell.flag
     end
 
     def still_playing?
