@@ -1,5 +1,5 @@
 module CellState
-    UNKNOW = "."
+    UNKNOWN = "."
     CLEAR = " "
     BOMB = "#"
     FLAG = "F"

@@ -9,15 +9,15 @@ class StatusPrinter
 
         occurrences = cells.group_by{|e| e}.map {|k, v| [k, v.length]}.to_h
 
-        unknow_count = occurrences[CellState::UNKNOW] || 0
-        puts "# unknow cells: #{unknow_count} - #{get_percent(unknow_count, cells.length)}%"
+        unknown_count = occurrences[CellState::UNKNOWN] || 0
+        puts "# unknown cells: #{unknown_count} - #{get_percent(unknown_count, cells.length)}%"
 
         clear_count = occurrences[CellState::CLEAR] || 0
-        know_count = clear_count
+        known_count = clear_count
         for i in 1..8
-            know_count += occurrences[i.to_s] || 0
+            known_count += occurrences[i.to_s] || 0
         end
-        puts "# know cells: #{know_count} - #{get_percent(know_count, cells.length)}%"        
+        puts "# known cells: #{known_count} - #{get_percent(known_count, cells.length)}%"        
         
         flag_count = occurrences[CellState::FLAG] || 0        
         puts "# flag cells: #{flag_count} - #{get_percent(flag_count, cells.length)}%"

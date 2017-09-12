@@ -80,7 +80,7 @@ class Cell
         end
 
         if !has_hit?
-            return CellState::UNKNOW
+            return CellState::UNKNOWN
         end
 
         if has_bomb?
