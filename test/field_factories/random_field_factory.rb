@@ -10,12 +10,12 @@ class TestRandomFieldFactory < Test::Unit::TestCase
 
         field = field_factory.get_field(width, height, num_mines)
         
-        assert_equal(width, field.length)
+        assert_equal(height, field.length)
 
         mines = 0
 
         for array in field
-            assert_equal(height, array.length)
+            assert_equal(width, array.length)
             for cell in array
                 if cell.has_bomb?
                     mines += 1

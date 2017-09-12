@@ -41,12 +41,12 @@ class  Minesweeper
             return false
         end
 
-        cell = @field[x][y]
+        cell = @field[y][x]
         return cell.hit
     end
 
     def flag(x, y)
-        cell = @field[x][y]
+        cell = @field[y][x]
         return cell.flag
     end
 

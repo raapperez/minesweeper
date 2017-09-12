@@ -6,9 +6,9 @@ class RandomFieldFactory
         field = []
         cells = []
 
-        for i in 0..width-1
+        for i in 0..height-1
             field[i] = []
-            for j in 0..height-1
+            for j in 0..width-1
                 cell = Cell.new
                 field[i][j] = cell
                 cells.push(cell)
