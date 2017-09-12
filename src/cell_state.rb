@@ -1,7 +1,6 @@
 module CellState
-    unknow = "."
-    clear = " "
-    bomb = "#"
-    flag = "F"
+    UNKNOW = "."
+    CLEAR = " "
+    BOMB = "#"
+    FLAG = "F"
   end
-  

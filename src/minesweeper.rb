@@ -84,12 +84,13 @@ class  Minesweeper
         return true
     end    
 
-    def board_state(params)
-        xray = defined?(params) && params["xray"] && !still_playing?
+    def board_state(params = {})
+
+        xray = params[:xray] == true && !still_playing?
 
         state = []
 
-        for array in field
+        for array in @field
             state.push(array.map { |cell| cell.get_state(xray) })            
         end
 

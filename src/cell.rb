@@ -72,19 +72,19 @@ class Cell
 
     def get_state(xray = false)
         if xray && has_bomb?
-            return CellState::bomb
+            return CellState::BOMB
         end
 
         if has_flag?
-            return CellState::flag
+            return CellState::FLAG
         end
 
         if !has_hit?
-            return CellState::unknow
+            return CellState::UNKNOW
         end
 
         if has_bomb?
-            return CellState::bomb
+            return CellState::BOMB
         end
 
         bombs = get_neighbor_bombs_num
@@ -93,6 +93,6 @@ class Cell
             return bombs.to_s
         end
 
-        return CellState::clear
+        return CellState::CLEAR
     end
 end
