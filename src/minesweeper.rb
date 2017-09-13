@@ -2,12 +2,16 @@ require_relative "./field_factories/random_field_factory"
 
 class  Minesweeper
     def initialize(width, height, num_mines, field_factory = RandomFieldFactory.new)
-        if width < 1
-            raise "Ivalid value for width"
+        if !(width.is_a? Integer) || width < 1
+            raise "Invalid value for width"
         end
 
-        if height < 1
-            raise "Ivalid value for height"
+        if !(height.is_a? Integer) || height < 1
+            raise "Invalid value for height"
+        end
+
+        if !(num_mines.is_a? Integer) || num_mines < 0
+            raise "Invalid value for num_mines"
         end
 
         if width * height < num_mines
@@ -37,15 +41,32 @@ class  Minesweeper
     end
 
     def play(x, y)
+        if !valid_x?(x)
+            raise "Invalid value for x"
+        end
+
+        if !valid_y?(y)
+            raise "Invalid value for y"
+        end
+
         if !still_playing?
             return false
         end
+
 
         cell = @field[y][x]
         return cell.hit
     end
 
     def flag(x, y)
+        if !valid_x?(x)
+            raise "Invalid value for x"
+        end
+
+        if !valid_y?(y)
+            raise "Invalid value for y"
+        end
+
         if !still_playing?
             return false
         end
@@ -100,4 +121,16 @@ class  Minesweeper
 
         return state;
     end
+
+    private
+
+    def valid_x?(x)
+        return (x.is_a? Integer) && x >= 0 && x < @width            
+    end
+
+    def valid_y?(y)
+        return (y.is_a? Integer) && y >= 0 && y < @height
+    end
+
+
 end
