@@ -46,6 +46,10 @@ class  Minesweeper
     end
 
     def flag(x, y)
+        if !still_playing?
+            return false
+        end
+
         cell = @field[y][x]
         return cell.flag
     end
