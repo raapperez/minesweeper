@@ -15,6 +15,12 @@ ruby bin/example.rb
 ```
 ruby bin/minesweeper_game.rb
 ```
+#### Instructions:
+You need to enter the values separeted by space:
+```
+Enter the width, height and num_mines: 3 3 1
+Enter the action (c to click or f to flag), x and y: c 0 0
+```
 
 ### To run all tests
 ```
