@@ -63,8 +63,8 @@ class  Minesweeper
                     return false # Hit a bomb
                 end
 
-                if !cell.has_bomb? && !cell.has_hit? && !cell.has_flag?
-                    result = true # There is still a not hit cell without bomb and flag
+                if !cell.has_bomb? && !cell.has_hit?
+                    result = true # There is still a not hit cell without bomb
                 end
             end
         end

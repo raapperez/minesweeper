@@ -234,4 +234,127 @@ class TestMinesweeper < Test::Unit::TestCase
 
     end
 
+    def test_game_3
+        width, height = 3, 3
+
+        bombs_matrix = create_bombs_matrix(width, height)
+        bombs_matrix[1][1] = true
+        bombs_matrix[2][2] = true
+        
+        game = Minesweeper.new(width, height, 2, StubFieldFactory.new(bombs_matrix))
+
+        assert_equal(true, game.still_playing?)
+        assert_equal(false, game.victory?)
+        state = game.board_state()
+
+        for y in 0..height-1
+            for x in 0..width-1                
+                assert_equal(CellState::UNKNOWN, state[y][x])
+            end
+        end
+
+        assert_equal(true, game.play(1, 1))
+        assert_equal(false, game.still_playing?)
+        assert_equal(false, game.victory?)
+        state = game.board_state()
+
+        for y in 0..height-1
+            for x in 0..width-1                
+                if x == 1 && y == 1
+                    assert_equal(CellState::BOMB, state[y][x])
+                else
+                    assert_equal(CellState::UNKNOWN, state[y][x])    
+                end
+            end
+        end
+
+        state = game.board_state(xray: true)
+
+        for y in 0..height-1
+            for x in 0..width-1                
+                if (x == 1 && y == 1) || (x == 2 && y == 2)
+                    assert_equal(CellState::BOMB, state[y][x])
+                else
+                    assert_equal(CellState::UNKNOWN, state[y][x])    
+                end
+            end
+        end
+
+    end
+
+    def test_game_4
+        width, height = 3, 3
+
+        bombs_matrix = create_bombs_matrix(width, height)
+        bombs_matrix[1][1] = true
+        
+        game = Minesweeper.new(width, height, 1, StubFieldFactory.new(bombs_matrix))
+
+        assert_equal(true, game.still_playing?)
+        assert_equal(false, game.victory?)
+        state = game.board_state()
+
+        for y in 0..height-1
+            for x in 0..width-1                
+                assert_equal(CellState::UNKNOWN, state[y][x])
+            end
+        end
+
+        assert_equal(true, game.flag(1, 1))
+        assert_equal(false, game.play(1, 1))
+        assert_equal(true, game.still_playing?)
+        assert_equal(false, game.victory?)
+        state = game.board_state()
+
+        for y in 0..height-1
+            for x in 0..width-1                
+                if x == 1 && y == 1
+                    assert_equal(CellState::FLAG, state[y][x])
+                else
+                    assert_equal(CellState::UNKNOWN, state[y][x])    
+                end
+            end
+        end
+
+        assert_equal(true, game.play(0, 0))
+        assert_equal(true, game.play(0, 1))
+        assert_equal(true, game.play(0, 2))
+        assert_equal(true, game.play(1, 0))
+        assert_equal(true, game.play(1, 2))
+        assert_equal(true, game.play(2, 0))
+        assert_equal(true, game.play(2, 1))
+        assert_equal(true, game.flag(2, 2))
+        assert_equal(true, game.still_playing?)
+        assert_equal(false, game.victory?)
+        state = game.board_state()
+
+        for y in 0..height-1
+            for x in 0..width-1                
+                if (x == 1 && y == 1) || (x == 2 && y == 2)
+                    assert_equal(CellState::FLAG, state[y][x])
+                else
+                    assert_equal("1", state[y][x])    
+                end
+            end
+        end
+
+        assert_equal(true, game.flag(2, 2))
+        assert_equal(true, game.play(2, 2))
+        assert_equal(false, game.still_playing?)
+        assert_equal(true, game.victory?)
+
+        state = game.board_state(xray: true)
+
+        for y in 0..height-1
+            for x in 0..width-1                
+                if (x == 1 && y == 1)
+                    assert_equal(CellState::BOMB, state[y][x])
+                else
+                    assert_equal("1", state[y][x])    
+                end
+            end
+        end
+
+    end
+
 end
