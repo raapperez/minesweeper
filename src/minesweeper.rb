@@ -1,11 +1,9 @@
 require_relative "./field_factories/random_field_factory"
-require 'json'
+require_relative "./field_factories/load_field_factory"
 
 class  Minesweeper
-    def initialize(width, height, num_mines, field_factory = RandomFieldFactory.new, ignore = false)
-        if ignore
-            return
-        end
+    def initialize(width, height, num_mines, field_factory = RandomFieldFactory.new)
+
         if !(width.is_a? Integer) || width < 1
             raise "Invalid value for width"
         end
@@ -148,34 +146,9 @@ class  Minesweeper
         
     end
 
-    def load(file_name)
-        load_text = File.read(file_name)
-
-        field_info = JSON.parse(load_text)
-
-        @field = []
-
-        @num_mines = 0
-
-
-        field_info.each do |array|
-            @field.push(array.map do |cell_info|
-
-                has_bomb = cell_info["has_bomb"]
-
-                if(has_bomb)
-                    @num_mines += 1
-                end
-
-                Cell.new(cell_info["has_flag"], cell_info["has_hit"], has_bomb)
-            end
-            )
-        end
-
-        @width = @field.first.length
-        @height = @field.length
-
-        put_neighbor_cells()
+    def self.load(file_name)
+        field_factory = LoadFieldFactory.new(file_name)
+        Minesweeper.new(field_factory.width, field_factory.height, field_factory.num_mines, field_factory)
     end
 
     private
