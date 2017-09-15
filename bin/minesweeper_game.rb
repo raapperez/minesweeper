@@ -9,6 +9,7 @@ status_printer = StatusPrinter.new
 
 if ARGV.length == 1
     file_name = ARGV.first
+    ARGV.clear
     game = Minesweeper.new(1, 1, 1, nil, true)
     game.load(file_name)
 else
