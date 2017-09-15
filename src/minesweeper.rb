@@ -1,7 +1,11 @@
 require_relative "./field_factories/random_field_factory"
+require 'json'
 
 class  Minesweeper
-    def initialize(width, height, num_mines, field_factory = RandomFieldFactory.new)
+    def initialize(width, height, num_mines, field_factory = RandomFieldFactory.new, ignore = false)
+        if ignore
+            return
+        end
         if !(width.is_a? Integer) || width < 1
             raise "Invalid value for width"
         end
@@ -26,6 +30,7 @@ class  Minesweeper
         @height = height
         @num_mines = num_mines
         @field = field_factory.get_field(width, height, num_mines)
+        put_neighbor_cells()
     end
 
     def width
@@ -122,6 +127,57 @@ class  Minesweeper
         return state;
     end
 
+    def save()
+
+        field_to_save = []
+
+        @field.each do |array|
+            field_to_save.push(array.map do |cell|
+            {
+                has_flag: cell.has_flag?,
+                has_hit: cell.has_hit?,
+                has_bomb: cell.has_bomb?
+            }
+            end
+            )
+        end
+
+        save_text = JSON.generate(field_to_save)
+
+        File.write('saved_file.json', save_text)
+        
+    end
+
+    def load(file_name)
+        load_text = File.read(file_name)
+
+        field_info = JSON.parse(load_text)
+
+        @field = []
+
+        @num_mines = 0
+
+
+        field_info.each do |array|
+            @field.push(array.map do |cell_info|
+
+                has_bomb = cell_info["has_bomb"]
+
+                if(has_bomb)
+                    @num_mines += 1
+                end
+
+                Cell.new(cell_info["has_flag"], cell_info["has_hit"], has_bomb)
+            end
+            )
+        end
+
+        @width = @field.first.length
+        @height = @field.length
+
+        put_neighbor_cells()
+    end
+
     private
 
     def valid_x?(x)
@@ -132,5 +188,19 @@ class  Minesweeper
         return (y.is_a? Integer) && y >= 0 && y < @height
     end
 
+    def put_neighbor_cells()
+        for i in 0..@field.length-1
+            for j in 0..@field[i].length-1
+                cell = @field[i][j]
+
+                for r in [0, i - 1].max..[i + 1, @field.length - 1].min
+                    for c in [0, j - 1].max..[j + 1, @field[i].length - 1].min
+                        neighbor_cell = @field[r][c]
+                        cell.add_neighbor_cell(neighbor_cell)
+                    end
+                end
+            end
+        end
+    end
 
 end

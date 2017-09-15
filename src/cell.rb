@@ -3,10 +3,10 @@ require_relative "./cell_state"
 
 class Cell
 
-    def initialize
-        @has_flag = false
-        @has_hit = false
-        @has_bomb = false
+    def initialize(has_flag = false, has_hit = false, has_bomb = false)
+        @has_flag = has_flag
+        @has_hit = has_hit
+        @has_bomb = has_bomb
         @neighbor_cells = []
     end
 
